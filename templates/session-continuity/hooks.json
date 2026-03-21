@@ -1,0 +1,27 @@
+{
+  "_comment": "Merge these into your project's .claude/settings.local.json under 'hooks'",
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./scripts/check-handover.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "CMD=$(jq -r '.tool_input.command // \"\"'); if echo \"$CMD\" | grep -qE 'git\\s+commit\\s'; then ./scripts/check-handover.sh --pre-commit; fi"
+          }
+        ]
+      }
+    ]
+  }
+}
