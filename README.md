@@ -98,6 +98,12 @@ If it doesn't show up, run `npx figma-console-mcp@latest` once in your terminal 
 
 That's it. Go back to [Quick start](#quick-start).
 
+## Found it useful?
+
+Give it a star on GitHub — it helps others find it. If you run into issues or have ideas, [open an issue](https://github.com/lifesized/figma-design-sync/issues).
+
+Built by [James Burke](https://github.com/lifesized).
+
 ## License
 
 MIT
