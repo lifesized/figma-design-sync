@@ -13,6 +13,8 @@ claude plugin marketplace add lifesized/figma-design-sync
 claude plugin install figma-design-sync@lifesized
 ```
 
+Then [set up Figma Console MCP](#figma-console-mcp-setup) if you haven't already.
+
 ### Cursor / Kilocode / Codex / other agents
 
 ```bash
@@ -30,19 +32,15 @@ The skills are markdown files — any agent that supports instruction files and 
 | **sync-from-figma** | `/sync-from-figma` | Diff Figma variables against your CSS (audit mode, dry-run by default) |
 | **setup-project** | `/setup-project` | Scan your codebase, extract tokens, configure sync |
 
-## Prerequisites
-
-- [Figma Console MCP](https://github.com/southleft/figma-console-mcp) — [setup guide](https://docs.figma-console-mcp.southleft.com/setup)
-- Figma Desktop
-- A frontend codebase — no design system yet? Run `/setup-project` and it'll find the one hiding in your code
-
 ## Quick start
 
-1. Install Figma Console MCP and open the Desktop Bridge plugin in your Figma file
-2. Tell your AI agent "connect to Figma" — it'll generate a 6-character pairing code → enter it in the Desktop Bridge plugin's Cloud Mode → Connect
-3. Navigate to the Figma page you want your design system on — **stay on this page** (the connection is per-page)
-4. Run `/setup-project` to detect your tokens
-5. Run `/sync-to-figma` to push everything to Figma
+1. [Set up Figma Console MCP](#figma-console-mcp-setup) (one time, 5 min)
+2. Open the Desktop Bridge plugin in your Figma file
+3. Tell your AI agent "connect to Figma" — it'll generate a 6-character pairing code
+4. In the Desktop Bridge plugin: toggle **Cloud Mode** → enter the code → Connect
+5. Navigate to the Figma page you want your design system on — **stay on this page**
+6. Run `/setup-project` to detect your tokens
+7. Run `/sync-to-figma` to push everything to Figma
 
 ## How it works
 
@@ -64,16 +62,6 @@ The skills are markdown files — any agent that supports instruction files and 
 
 **No design system?** `/setup-project` scans your codebase for scattered colors, font sizes, spacing values, groups near-duplicates, and proposes a consolidated token file. Works with Lovable, v0, Bolt, or any hand-coded project.
 
-## Connecting to Figma
-
-These skills use **Cloud Mode** — no local Node.js needed. The Desktop Bridge plugin must stay running in your Figma file. Connection is per-file. If pairing fails, the skills fall back to `figma_execute`.
-
-| Mode | Tools | Write | Best for |
-|------|-------|-------|----------|
-| **Cloud** | 44 | Yes | AI coding agents |
-| Local | 63+ | Yes | Real-time tracking |
-| Remote | 9 | No | Read-only exploration |
-
 ## Extending these skills
 
 These use a subset of Figma Console MCP's 59+ tools. Build your own skills with full access to variables, components, nodes, screenshots, accessibility linting, and `figma_execute` (arbitrary Plugin API JavaScript). See [their docs](https://docs.figma-console-mcp.southleft.com/) for the full API.
@@ -83,6 +71,32 @@ These use a subset of Figma Console MCP's 59+ tools. Build your own skills with 
 - [Uber's uSpec](https://www.uber.com/en-CA/blog/automate-design-specs/) — agent skills for Figma spec generation, built on Figma Console MCP
 - [Romina Kavcic](https://thedesignsystem.guide) — Agentic Design Systems framework (Into Design Systems 2026)
 - [Southleft](https://figma-console-mcp.southleft.com/) — the open-source infrastructure layer. [TJ Pitre](https://www.linkedin.com/in/tjpitre/) and team built the foundation that makes all of this possible.
+
+---
+
+## Figma Console MCP setup
+
+One-time setup. Takes about 5 minutes.
+
+### 1. Get a Figma access token
+
+Figma → Settings → Personal access tokens → create one. Copy it (starts with `figd_`).
+
+### 2. Add to Claude Code
+
+```bash
+claude mcp add figma-console -s user -e FIGMA_ACCESS_TOKEN=figd_YOUR_TOKEN_HERE -- npx -y figma-console-mcp@latest
+```
+
+Restart Claude Code.
+
+### 3. Install the Desktop Bridge plugin
+
+Open any Figma file → Plugins → Search "Desktop Bridge" → Install and run it.
+
+If it doesn't show up, run `npx figma-console-mcp@latest` once in your terminal to generate the plugin files, then import via Plugins → Development → Import plugin from manifest → `~/.figma-console-mcp/plugin/manifest.json`.
+
+That's it. Go back to [Quick start](#quick-start).
 
 ## License
 
