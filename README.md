@@ -80,7 +80,7 @@ One-time setup. Takes about 5 minutes.
 
 ### 1. Get a Figma access token
 
-Figma → Settings → Personal access tokens → create one. Copy it (starts with `figd_`).
+From Figma Desktop: Home → Profile pic (your name, down arrow) → Settings → Security tab → Create new token. Copy it (starts with `figd_`).
 
 ### 2. Add to Claude Code
 
