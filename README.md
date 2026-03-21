@@ -112,6 +112,41 @@ After running `/setup-project`, you'll have project-specific mapping files:
 
 These tell the global skills where your tokens live and how to map them.
 
+## What the MCP can do in Figma
+
+These skills use a subset of Figma Console MCP's capabilities. If you want to extend them or build your own skills, here's what's available:
+
+### Read
+
+- **Variables & tokens** — read all variable collections, modes, values; export as CSS, Tailwind, Sass, or JSON
+- **Components** — inspect structure, variant axes, properties, sub-components, slot relationships
+- **Nodes** — read any node's fills, strokes, text, layout, size, position, corner radius, effects
+- **Screenshots** — capture any node or frame as an image for visual verification
+- **Styles** — read shared color, text, and effect styles
+- **Accessibility** — WCAG contrast checking and accessibility linting
+
+### Write
+
+- **Variables** — create collections, create/update/delete variables, set values per mode
+- **Nodes** — create rectangles, frames, text, groups; set fills, strokes, text content, resize, move, rename, delete
+- **Variable bindings** — bind any fill, stroke, or dimension to a variable (`setBoundVariableForPaint`, `setBoundVariable`)
+- **Components** — create component sets, add/edit/delete component properties, arrange variants
+- **Instances** — instantiate components, set instance properties
+- **Images** — set image fills, export nodes as PNG/JPEG/WEBP/PDF
+- **Pages** — navigate between pages (artboards are created on the current page)
+
+### Execute
+
+- **`figma_execute`** — run arbitrary JavaScript in Figma's plugin context with full access to the `figma` API. This is the escape hatch — anything the Figma Plugin API supports, you can do.
+
+### Limitations
+
+- **Cloud mode**: 44 tools (no real-time selection tracking or console monitoring — those need local mode)
+- **FigJam**: not fully supported — these skills target Figma design files
+- **Variables API**: works on any Figma plan via the Plugin API (not the Enterprise REST API)
+- **Per-file scope**: the connection is to one open Figma file at a time
+- **No version history access**: can't read or write to Figma's built-in version history
+
 ## Inspired by
 
 - [Uber's uSpec](https://www.uber.com/en-CA/blog/automate-design-specs/) — modular agent skills for Figma spec generation
