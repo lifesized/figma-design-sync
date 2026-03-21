@@ -28,6 +28,37 @@ Or manually: clone the repo and copy `skills/` into `~/.claude/skills/`.
 - Figma Desktop app
 - A frontend codebase (works best with CSS custom properties, Tailwind, or design token files — but can extract tokens from any styling approach)
 
+## Connecting to Figma
+
+These skills use **Cloud Mode** — the recommended connection for AI coding agents like Claude Code. Cloud mode gives you 44 tools with full write access, no local Node.js server needed. Your AI agent connects to Figma through a cloud relay, and the Desktop Bridge plugin running in your Figma file handles the other end.
+
+### Setup (once)
+
+1. Add the Figma Console MCP server to your AI client ([setup guide](https://docs.figma-console-mcp.southleft.com/setup))
+2. Open the Desktop Bridge plugin in your Figma file
+
+### Pairing (each session)
+
+1. Your AI agent generates a 6-character pairing code (expires in 5 minutes)
+2. In the Desktop Bridge plugin: toggle **Cloud Mode** → enter the code → click **Connect**
+3. The connection is now live — the agent can read and write to your open Figma file
+
+### Important notes
+
+- The Desktop Bridge plugin **must stay running** in your Figma file for the connection to work
+- The connection is **per-file** — if you switch Figma files, you need to re-pair
+- Variables are **file-global** (not page-scoped), so token syncing works across all pages
+- Artboards are created on the **current page** — navigate to the right page before syncing
+- If pairing fails or `get_variables` returns errors, the skills fall back to `figma_execute` which runs code directly through the plugin console
+
+### Connection modes compared
+
+| Mode | Tools | Write access | Best for |
+|------|-------|-------------|----------|
+| **Cloud** (recommended) | 44 | Yes | AI coding agents (Claude Code, Cursor) |
+| Local | 63+ | Yes | Full real-time tracking, console monitoring |
+| Remote | 9 | No | Quick read-only exploration |
+
 ## How it works
 
 ### Code-first design systems
