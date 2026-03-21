@@ -39,9 +39,10 @@ The skills are markdown files — any agent that supports instruction files and 
 ## Quick start
 
 1. Install Figma Console MCP and open the Desktop Bridge plugin in your Figma file
-2. Your AI agent generates a 6-character pairing code → enter it in the plugin's Cloud Mode → Connect
-3. Run `/setup-project` to detect your tokens
-4. Run `/sync-to-figma` to push everything to Figma
+2. Tell your AI agent "connect to Figma" — it'll generate a 6-character pairing code → enter it in the Desktop Bridge plugin's Cloud Mode → Connect
+3. Navigate to the Figma page you want your design system on — **stay on this page** (the connection is per-page)
+4. Run `/setup-project` to detect your tokens
+5. Run `/sync-to-figma` to push everything to Figma
 
 ## How it works
 
