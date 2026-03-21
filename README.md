@@ -51,7 +51,7 @@ cp -r figma-design-sync/plugin/skills/* ~/.claude/skills/
 
 - [Figma Console MCP](https://github.com/southleft/figma-console-mcp) by [Southleft](https://figma-console-mcp.southleft.com/) — MCP server with 59+ tools for reading/writing design tokens, components, and variables. Includes the Desktop Bridge plugin for Figma. See their [setup guide](https://docs.figma-console-mcp.southleft.com/setup) for installation.
 - Figma Desktop app
-- A frontend codebase (works best with CSS custom properties, Tailwind, or design token files — but can extract tokens from any styling approach)
+- A frontend codebase — don't have a design system? No worries. Run `/setup-project` and it'll scan your code to find the one hiding in there already
 
 ## Connecting to Figma
 
