@@ -37,9 +37,37 @@ ASK the user if they want session continuity hooks. If yes:
 6. Add session continuity instructions to `CLAUDE.md` if it exists
 7. ASK if `HANDOVER.md` should be gitignored (recommend yes)
 
-### Step 3: Design token mapping
+### Step 3: Design system extraction
 
-If design tokens are found, create a project-specific sync config:
+There are two paths depending on what exists:
+
+#### Path A: Tokens already exist
+
+If the project has a `:root` block, Tailwind config, theme file, or design-system.json — map what's there.
+
+#### Path B: No formal design system (Lovable, v0, Bolt, or just hacking)
+
+If no tokens file exists, extract the implicit design system from the codebase:
+
+1. **Scan for colors** — grep for hex values (`#xxx`, `#xxxxxx`), `rgb()`, `hsl()`, Tailwind color classes (`bg-zinc-900`, `text-gray-400`), and inline style colors. Group similar values (e.g. `#1a1a1a` and `#1b1b1b` are likely the same intent).
+
+2. **Scan for typography** — find font families, font sizes, font weights, line heights across CSS, Tailwind classes, and inline styles.
+
+3. **Scan for spacing & radii** — find padding, margin, gap, border-radius values. Look for repeated patterns.
+
+4. **Present findings** — show the user what was found:
+   - "You're using 14 unique colors — here are the 8 that appear most, with suggested names"
+   - "You have 5 font sizes — here's a proposed type scale"
+   - "You're using 4 border-radius values — here's a proposed set"
+   - Flag near-duplicates and suggest consolidation
+
+5. **ASK the user** to confirm, adjust names, or merge duplicates.
+
+6. **Generate a token file** — create a canonical CSS file with `:root` custom properties (or Tailwind config extension, whichever fits the project). This becomes the source of truth going forward.
+
+7. **Optionally refactor** — ASK if the user wants to replace hardcoded values in components with the new tokens. This is a bigger change so always confirm first.
+
+#### After either path, create sync configs:
 
 1. Create `.agents/skills/sync-to-figma/SKILL.md` with:
    - Path to the canonical token file (e.g. `app/globals.css`, `src/tokens.css`)
