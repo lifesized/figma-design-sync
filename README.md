@@ -1,6 +1,6 @@
 # Figma Design Sync
 
-Agent skills for syncing design systems between code and Figma. Code is the source of truth — Figma is the mirror.
+Agent skills for syncing design systems between code and Figma. Code-first by default, but the skills support both directions — push tokens to Figma, or audit Figma for drift against code. Your team decides where truth lives.
 
 ## Install
 
@@ -50,6 +50,8 @@ cp -r figma-design-sync/plugin/skills/* ~/.claude/skills/
 ## Prerequisites
 
 - [Figma Console MCP](https://github.com/southleft/figma-console-mcp) by [Southleft](https://figma-console-mcp.southleft.com/) — MCP server with 59+ tools for reading/writing design tokens, components, and variables. Includes the Desktop Bridge plugin for Figma. See their [setup guide](https://docs.figma-console-mcp.southleft.com/setup) for installation.
+
+> **Note:** This is **not** the same as Figma's own "Figma MCP." Figma MCP (by Figma) is read-only and uses the REST API. Figma Console MCP (by Southleft) connects through the Plugin API — it can read *and write* variables, create nodes, execute code, and bind tokens. These skills require Figma Console MCP.
 - Figma Desktop app
 - A frontend codebase — don't have a design system? No worries. Run `/setup-project` and it'll scan your code to find the one hiding in there already
 
@@ -86,9 +88,9 @@ These skills use **Cloud Mode** — the recommended connection for AI coding age
 
 ## How it works
 
-### Code-first design systems
+### Code-first by default, flexible by design
 
-Your CSS/Tailwind defines the design system. These skills push that truth into Figma as native variables and component documentation. When code changes, re-sync. Figma always reflects current code.
+These skills default to code as the source of truth — your CSS/Tailwind defines the design system, and Figma mirrors it. But the tooling supports both directions. `/sync-to-figma` pushes code → Figma. `/sync-from-figma` diffs Figma → code. Your team decides where truth lives based on your workflow, not the tooling.
 
 ### Atomic token binding
 
@@ -166,14 +168,19 @@ These skills use a subset of Figma Console MCP's capabilities. If you want to ex
 - **Per-file scope**: the connection is to one open Figma file at a time
 - **No version history access**: can't read or write to Figma's built-in version history
 
-## Inspired by
+## Part of a bigger movement
 
-- [Uber's uSpec](https://www.uber.com/en-CA/blog/automate-design-specs/) — modular agent skills for Figma spec generation
-- The idea that design documentation should be generated from code, not maintained by hand
+Design is moving closer to code. These skills are one piece of a shift that multiple teams are pushing from different angles:
+
+- [Uber's uSpec](https://www.uber.com/en-CA/blog/automate-design-specs/) — modular agent skills that generate complete component specs directly in Figma, built on Figma Console MCP
+- [Romina Kavcic](https://thedesignsystem.guide) — the "Agentic Design Systems" framework (Plan → Execute → Monitor → Analyze → Learn), presented at Into Design Systems 2026
+- [Southleft](https://figma-console-mcp.southleft.com/) — the open-source infrastructure layer that makes all of this possible
+
+The idea: design documentation should be generated from code, not maintained by hand. The separation between what's designed and what's built is shrinking.
 
 ## Credits
 
-- [Southleft](https://southleft.com/) — built [Figma Console MCP](https://figma-console-mcp.southleft.com/), the open-source infrastructure layer that makes this possible. These skills would not exist without their MCP server providing direct read/write access to Figma's plugin API.
+- [Southleft](https://southleft.com/) — built [Figma Console MCP](https://figma-console-mcp.southleft.com/), the open-source infrastructure that these skills depend on. Without their MCP server providing direct read/write access to Figma's Plugin API, none of this would exist. [TJ Pitre](https://www.linkedin.com/in/tjpitre/) and team are building the database layer that the entire agentic design ecosystem runs on.
 
 ## License
 
