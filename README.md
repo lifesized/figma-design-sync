@@ -5,7 +5,7 @@ Agent skills for syncing design systems between code and Figma. Code is the sour
 ## Install
 
 ```bash
-npx skillsadd tofumajure/figma-design-sync
+npx skillsadd lifesized/figma-design-sync
 ```
 
 ## What's included
