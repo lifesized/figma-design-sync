@@ -45,7 +45,9 @@ There are two paths depending on what exists:
 
 If the project has a `:root` block, Tailwind config, theme file, or design-system.json — map what's there.
 
-#### Path B: No formal design system (Lovable, v0, Bolt, or just hacking)
+#### Path B: No formal design system (Lovable, v0, Bolt, or just vibes)
+
+For the "design system? bruv I just picked colors that looked nice at 2am" crowd. You shipped something from Lovable, v0, or a late-night hacking session and it works but the styles are... everywhere. 47 shades of gray, font sizes chosen by feeling, border-radius: whatever-looked-round-enough. No judgment — we've all been there. Let's find the design system hiding inside the chaos.
 
 If no tokens file exists, extract the implicit design system from the codebase:
 
