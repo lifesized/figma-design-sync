@@ -5,8 +5,14 @@ Agent skills for syncing design systems between code and Figma. Code is the sour
 ## Install
 
 ```bash
-npx skillsadd lifesized/figma-design-sync
+# Add as a marketplace
+claude plugin marketplace add lifesized/figma-design-sync
+
+# Install the plugin
+claude plugin install figma-design-sync@lifesized
 ```
+
+Or manually: clone the repo and copy `skills/` into `~/.claude/skills/`.
 
 ## What's included
 
@@ -18,9 +24,9 @@ npx skillsadd lifesized/figma-design-sync
 
 ## Prerequisites
 
-- [Figma Console MCP](https://github.com/nicholasberggaard/figma-console-mcp) — connects your AI agent to Figma Desktop
+- [Figma Console MCP](https://github.com/southleft/figma-console-mcp) by [Southleft](https://figma-console-mcp.southleft.com/) — the MCP server that connects your AI agent to Figma Desktop (59+ tools for reading/writing design tokens, components, and variables)
 - Figma Desktop app with the Desktop Bridge plugin
-- A codebase with CSS custom properties, Tailwind, or a design token file
+- A frontend codebase (works best with CSS custom properties, Tailwind, or design token files — but can extract tokens from any styling approach)
 
 ## How it works
 
@@ -79,6 +85,10 @@ These tell the global skills where your tokens live and how to map them.
 
 - [Uber's uSpec](https://www.uber.com/en-CA/blog/automate-design-specs/) — modular agent skills for Figma spec generation
 - The idea that design documentation should be generated from code, not maintained by hand
+
+## Credits
+
+- [Southleft](https://southleft.com/) — built [Figma Console MCP](https://figma-console-mcp.southleft.com/), the open-source infrastructure layer that makes this possible. These skills would not exist without their MCP server providing direct read/write access to Figma's plugin API.
 
 ## License
 

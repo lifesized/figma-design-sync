@@ -1,0 +1,9 @@
+{
+  "name": "figma-design-sync",
+  "version": "1.0.0",
+  "description": "Skills for syncing design systems between code and Figma. Code-first, token-bound, visual git.",
+  "author": {
+    "name": "James Burke",
+    "email": "james@lifesized.co"
+  }
+}
