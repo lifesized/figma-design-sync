@@ -4,15 +4,38 @@ Agent skills for syncing design systems between code and Figma. Code is the sour
 
 ## Install
 
+### Claude Code
+
 ```bash
-# Add as a marketplace
+# Add the marketplace (one time)
 claude plugin marketplace add lifesized/figma-design-sync
 
 # Install the plugin
 claude plugin install figma-design-sync@lifesized
 ```
 
-Or manually: clone the repo and copy `skills/` into `~/.claude/skills/`.
+### Cursor / Windsurf / other MCP-compatible agents
+
+Clone the repo and copy the skill files into your agent's rules or instructions directory:
+
+```bash
+git clone https://github.com/lifesized/figma-design-sync.git
+cp -r figma-design-sync/plugin/skills/* ~/.cursor/skills/   # Cursor
+# or wherever your agent reads skill/rule files from
+```
+
+The skills are plain markdown files — any agent that supports instruction files and can connect to [Figma Console MCP](https://github.com/southleft/figma-console-mcp) can use them.
+
+### OpenAI Codex / ChatGPT
+
+Codex and ChatGPT can use these skills if you have Figma Console MCP configured as an MCP server in your environment. Add the SKILL.md content as custom instructions or system prompts, and ensure the MCP tools (`figma_execute`, `figma_get_variables`, etc.) are available to the agent.
+
+### Manual install (any agent)
+
+```bash
+git clone https://github.com/lifesized/figma-design-sync.git
+cp -r figma-design-sync/plugin/skills/* ~/.claude/skills/
+```
 
 ## What's included
 
