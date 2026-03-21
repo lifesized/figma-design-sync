@@ -14,7 +14,7 @@ claude plugin marketplace add lifesized/figma-design-sync
 claude plugin install figma-design-sync@lifesized
 ```
 
-### Cursor / Windsurf / other MCP-compatible agents
+### Cursor / Kilocode / other MCP-compatible agents
 
 Clone the repo and copy the skill files into your agent's rules or instructions directory:
 
@@ -23,6 +23,8 @@ git clone https://github.com/lifesized/figma-design-sync.git
 cp -r figma-design-sync/plugin/skills/* ~/.cursor/skills/   # Cursor
 # or wherever your agent reads skill/rule files from
 ```
+
+For [Kilocode](https://kilocode.ai) (VS Code extension), add the SKILL.md content to your custom instructions and configure Figma Console MCP as an MCP server in the extension settings.
 
 The skills are plain markdown files — any agent that supports instruction files and can connect to [Figma Console MCP](https://github.com/southleft/figma-console-mcp) can use them.
 
