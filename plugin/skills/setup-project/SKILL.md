@@ -1,18 +1,18 @@
 ---
 name: setup-project
-description: Onboard a new codebase for design system sync and session continuity. Detects tokens, sets up hooks, runs baseline audit. Activate with "/setup-project".
+description: Onboard a new codebase for design system sync with Figma. Detects or extracts tokens, configures sync mappings, runs baseline audit. Activate with "/setup-project".
 allowed-tools: Read, Grep, Glob, Bash, Edit, Write, AskUserQuestion, mcp__figma-console__figma_get_status, mcp__figma-console__figma_get_variables, mcp__figma-console__figma_execute, mcp__figma-console__figma_pair_plugin
 ---
 
 # Setup Project (Global)
 
-Onboard a new codebase for design system tooling and session continuity.
+Onboard a new codebase for design system tooling and Figma sync.
 
 ## When to use
 
 Run `/setup-project` when joining a new repo for the first time. It sets up:
-1. Session continuity hooks (HANDOVER.md + CHANGELOG.md automation)
-2. Design token detection and Figma sync configuration
+1. Design token detection (or extraction if none exist)
+2. Figma sync configuration
 3. Baseline UI state audit
 
 ## Workflow
@@ -25,19 +25,7 @@ Read the project to understand:
 - Component library (custom, shadcn, MUI, etc.)
 - Existing design tokens (`:root` vars, Tailwind config, theme files, design-system.json)
 
-### Step 2: Session continuity
-
-ASK the user if they want session continuity hooks. If yes:
-
-1. Copy `~/.claude/templates/session-continuity/check-handover.sh` → `<repo>/scripts/`
-2. Make it executable
-3. Merge hooks from `~/.claude/templates/session-continuity/hooks.json` into `<repo>/.claude/settings.local.json`
-4. Create a starter `HANDOVER.md` with today's date
-5. Create a starter `CHANGELOG.md` if one doesn't exist
-6. Add session continuity instructions to `CLAUDE.md` if it exists
-7. ASK if `HANDOVER.md` should be gitignored (recommend yes)
-
-### Step 3: Design system extraction
+### Step 2: Design system extraction
 
 There are two paths depending on what exists:
 
@@ -83,7 +71,7 @@ If no tokens file exists, extract the implicit design system from the codebase:
    - Figma collection name to look for
    - Reverse mapping rules (Figma variable names → CSS property names)
 
-### Step 4: Figma connection (optional)
+### Step 3: Figma connection (optional)
 
 ASK if the user wants to connect to Figma now. If yes:
 
@@ -93,25 +81,24 @@ ASK if the user wants to connect to Figma now. If yes:
 4. If collections exist, map them to detected CSS tokens
 5. If no collections, note that `/sync-to-figma` will create them on first run
 
-### Step 5: Baseline audit (optional)
+### Step 4: Baseline audit (optional)
 
 ASK if the user wants a UI state audit. If yes:
 
 1. Run `/design-audit-states` to assess current state coverage
 2. Save the results summary as a note in the project CLAUDE.md or a markdown file
 
-### Step 6: Summary
+### Step 5: Summary
 
 Print a summary of what was set up:
-- Session continuity: hooks installed / skipped
-- Token file: path and token count
+- Token file: path and token count (new or existing)
+- Sync configs: created / skipped
 - Figma: connected / not connected
 - State coverage: X% baseline / skipped
 - Next steps: suggested first actions
 
 ## Important notes
 
-- Never overwrite existing CLAUDE.md, CHANGELOG.md, or settings files — merge into them
+- Never overwrite existing CLAUDE.md or settings files — merge into them
 - All file creation requires user confirmation
 - The project-specific skill files (`.agents/skills/`) are meant to be committed to the repo
-- The session continuity template lives at `~/.claude/templates/session-continuity/`

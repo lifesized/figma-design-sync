@@ -109,12 +109,6 @@ Variables and artboards follow a git-like model:
 - `/sync-to-figma --tokens-only` — variables only, skip artboards
 - `/sync-to-figma --component Button` — sync a single component
 
-### Session continuity
-
-The `setup-project` skill installs hooks that keep `HANDOVER.md` and `CHANGELOG.md` current:
-- **After git commit**: warns if files are stale, confirms when current
-- **On session end**: reminds to update before closing
-
 ## Sync-to-Figma output
 
 The skill generates:
