@@ -1,7 +1,7 @@
 ---
 name: sync-from-figma
 description: Read Figma variables and diff against CSS tokens. Activate with "/sync-from-figma". Supports --dry-run. Reads variable collections, compares to canonical CSS custom properties, generates updated CSS.
-allowed-tools: Read, Grep, Glob, Bash, Edit, mcp__figma-console__figma_get_status, mcp__figma-console__figma_reconnect, mcp__figma-console__figma_get_variables, mcp__figma-console__figma_get_token_values, mcp__figma-console__figma_browse_tokens, mcp__figma-console__figma_list_open_files
+allowed-tools: Read, Grep, Glob, Bash, Edit, mcp__figma-console__figma_get_status, mcp__figma-console-local__figma_get_status, mcp__figma-console__figma_reconnect, mcp__figma-console-local__figma_reconnect, mcp__figma-console__figma_get_variables, mcp__figma-console-local__figma_get_variables, mcp__figma-console__figma_get_token_values, mcp__figma-console-local__figma_get_token_values, mcp__figma-console__figma_browse_tokens, mcp__figma-console-local__figma_browse_tokens, mcp__figma-console__figma_list_open_files, mcp__figma-console-local__figma_list_open_files
 ---
 
 # Sync from Figma (Global)

@@ -1,7 +1,7 @@
 ---
 name: sync-to-figma
 description: Push design tokens and components from code to Figma via Console MCP. Activate with "/sync-to-figma". Updates existing design system in-place by default. Use "--fresh" to create a new versioned page (visual git). Use "--tokens-only" to skip artboards.
-allowed-tools: Read, Grep, Glob, Bash, Edit, AskUserQuestion, mcp__figma-console__figma_get_status, mcp__figma-console__figma_reconnect, mcp__figma-console__figma_setup_design_tokens, mcp__figma-console__figma_batch_create_variables, mcp__figma-console__figma_batch_update_variables, mcp__figma-console__figma_create_child, mcp__figma-console__figma_create_variable, mcp__figma-console__figma_create_variable_collection, mcp__figma-console__figma_set_fills, mcp__figma-console__figma_set_strokes, mcp__figma-console__figma_set_text, mcp__figma-console__figma_resize_node, mcp__figma-console__figma_move_node, mcp__figma-console__figma_rename_node, mcp__figma-console__figma_take_screenshot, mcp__figma-console__figma_capture_screenshot, mcp__figma-console__figma_get_selection, mcp__figma-console__figma_navigate, mcp__figma-console__figma_execute, mcp__figma-console__figma_get_variables, mcp__figma-console__figma_list_open_files, mcp__figma-console__figma_delete_node
+allowed-tools: Read, Grep, Glob, Bash, Edit, AskUserQuestion, mcp__figma-console__figma_get_status, mcp__figma-console-local__figma_get_status, mcp__figma-console__figma_reconnect, mcp__figma-console-local__figma_reconnect, mcp__figma-console__figma_setup_design_tokens, mcp__figma-console-local__figma_setup_design_tokens, mcp__figma-console__figma_batch_create_variables, mcp__figma-console-local__figma_batch_create_variables, mcp__figma-console__figma_batch_update_variables, mcp__figma-console-local__figma_batch_update_variables, mcp__figma-console__figma_create_child, mcp__figma-console-local__figma_create_child, mcp__figma-console__figma_create_variable, mcp__figma-console-local__figma_create_variable, mcp__figma-console__figma_create_variable_collection, mcp__figma-console-local__figma_create_variable_collection, mcp__figma-console__figma_set_fills, mcp__figma-console-local__figma_set_fills, mcp__figma-console__figma_set_strokes, mcp__figma-console-local__figma_set_strokes, mcp__figma-console__figma_set_text, mcp__figma-console-local__figma_set_text, mcp__figma-console__figma_resize_node, mcp__figma-console-local__figma_resize_node, mcp__figma-console__figma_move_node, mcp__figma-console-local__figma_move_node, mcp__figma-console__figma_rename_node, mcp__figma-console-local__figma_rename_node, mcp__figma-console__figma_take_screenshot, mcp__figma-console-local__figma_take_screenshot, mcp__figma-console__figma_capture_screenshot, mcp__figma-console-local__figma_capture_screenshot, mcp__figma-console__figma_get_selection, mcp__figma-console-local__figma_get_selection, mcp__figma-console__figma_navigate, mcp__figma-console-local__figma_navigate, mcp__figma-console__figma_execute, mcp__figma-console-local__figma_execute, mcp__figma-console__figma_get_variables, mcp__figma-console-local__figma_get_variables, mcp__figma-console__figma_list_open_files, mcp__figma-console-local__figma_list_open_files, mcp__figma-console__figma_delete_node, mcp__figma-console-local__figma_delete_node
 ---
 
 # Sync to Figma (Global)
@@ -47,6 +47,12 @@ Every visual property in Figma MUST be bound to a Figma variable, not raw colors
 - Component state representations must use token-bound fills, not raw colors. E.g. a button's `bg-white/15` should bind to `color/white-15`, borders to `color/border`, text to `color/text`.
 - **Artboard backgrounds** for dark-theme projects must use a visible surface color (e.g. `color/panel` or `color/panel-2`) so components aren't invisible against the artboard.
 
+### Typography / Fonts
+- **All text nodes must use the project's actual fonts** — never leave Figma's default (Inter). Before writing any text, detect the project's font families from code (e.g. `layout.tsx` imports, CSS `font-family` declarations).
+- Load the correct fonts with `figma.loadFontAsync({ family, style })` before setting text.
+- After creating text nodes, verify fonts match code: `node.getRangeAllFontNames(0, node.characters.length)` — if any show "Inter", the font was not set correctly.
+- Map font weights: code `font-semibold` → Figma "SemiBold" (not "Semi Bold"), `font-bold` → "Bold", `font-medium` → "Medium", default → "Regular".
+
 ### General
 - After creating variables AND visual nodes, always verify bindings with `node.boundVariables` — if fills show `hasFillBinding: false`, the binding was missed.
 - When updating existing artboards, preserve variable bindings — don't overwrite bound fills with raw colors.
@@ -78,7 +84,8 @@ Every visual property in Figma MUST be bound to a Figma variable, not raw colors
 7. **Component artboards:** One per type, all states in variant x state grid. Token-bound fills.
 8. **ASK the user:** Which app view to mock up
 9. **Composition artboard:** Realistic mobile-width view assembling all components
-10. **Verify:** Screenshot per artboard → analyze → fix
+10. **Font audit:** Run `figma_execute` to scan all text nodes in the section for incorrect fonts (e.g. Inter instead of project fonts). Fix any mismatches.
+11. **Verify:** Screenshot per artboard → analyze → fix
 
 ### Update-in-place strategy (default mode)
 

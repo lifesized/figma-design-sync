@@ -1,7 +1,7 @@
 ---
 name: setup-project
 description: Onboard a new codebase for design system sync with Figma. Detects or extracts tokens, configures sync mappings, runs baseline audit. Activate with "/setup-project".
-allowed-tools: Read, Grep, Glob, Bash, Edit, Write, AskUserQuestion, mcp__figma-console__figma_get_status, mcp__figma-console__figma_get_variables, mcp__figma-console__figma_execute, mcp__figma-console__figma_pair_plugin
+allowed-tools: Read, Grep, Glob, Bash, Edit, Write, AskUserQuestion, mcp__figma-console__figma_get_status, mcp__figma-console-local__figma_get_status, mcp__figma-console__figma_get_variables, mcp__figma-console-local__figma_get_variables, mcp__figma-console__figma_execute, mcp__figma-console-local__figma_execute, mcp__figma-console__figma_pair_plugin, mcp__figma-console-local__figma_pair_plugin
 ---
 
 # Setup Project (Global)
