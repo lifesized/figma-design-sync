@@ -30,7 +30,7 @@ The skills are markdown files — any agent that supports instruction files and 
 |-------|---------|-------------|
 | **sync-to-figma** | `/sync-to-figma` | Push CSS tokens → Figma variables + component state artboards |
 | **sync-from-figma** | `/sync-from-figma` | Diff Figma variables against your CSS (audit mode, dry-run by default) |
-| **setup-project** | `/setup-project` | Scan your codebase, extract tokens, configure sync |
+| **setup-project** | `/setup-project` | Find the design system hiding in your code — even if you never made one |
 
 ## Quick start
 
@@ -58,7 +58,7 @@ The skills are markdown files — any agent that supports instruction files and 
 - Spacing & Radii — visual samples
 - Component artboards — one per component, all states (default, hover, focus, active, disabled, loading)
 
-**No design system?** `/setup-project` scans your codebase for scattered colors, font sizes, spacing values, groups near-duplicates, and proposes a consolidated token file. Works with Lovable, v0, Bolt, or any hand-coded project.
+**No design system? No problem.** Most projects have a design system — it's just not organized yet. `/setup-project` scans your codebase for every color, font size, spacing value, and border radius you're actually using. It groups near-duplicates, suggests names, and generates a clean token file. You don't need to know what a "design token" is — just run it and it'll show you what you've got. Works with Lovable, v0, Bolt, or any hand-coded project.
 
 ## Extending these skills
 
