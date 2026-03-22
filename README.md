@@ -38,7 +38,7 @@ The skills are markdown files — any agent that supports instruction files and 
 2. Open your Figma file and navigate to the page you want your design system on
 3. Open the Desktop Bridge plugin (Plugins → Desktop Bridge) — it connects automatically in local mode
 4. Run `/setup-project` to detect your tokens (from inside your Claude Code instance)
-5. Run `/sync-to-figma` to push everything to Figma — **stay on this page** (from inside your Claude Code instance)
+5. Run `/sync-to-figma` to push everything to Figma (from inside your Claude Code instance)
 
 ## How it works
 
