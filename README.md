@@ -58,7 +58,7 @@ The skills are markdown files — any agent that supports instruction files and 
 - Spacing & Radii — visual samples
 - Component artboards — one per component, all states (default, hover, focus, active, disabled, loading)
 
-**No design system? No problem.** Most projects have a design system — it's just not organized yet. `/setup-project` scans your codebase for every color, font size, spacing value, and border radius you're actually using. It groups near-duplicates, suggests names, and generates a clean token file. You don't need to know what a "design token" is — just run it and it'll show you what you've got. Works with Lovable, v0, Bolt, or any hand-coded project.
+**No design system? No problem.** Most projects have a design system — it's just not organized yet. `/setup-project` scans your codebase for every color, font size, spacing value, and border radius you're actually using. It groups near-duplicates, suggests names, and generates a clean token file. You don't need to know what a "design token" is — just run it and it'll show you what you've got.
 
 ## Extending these skills
 
