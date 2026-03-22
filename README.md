@@ -36,11 +36,9 @@ The skills are markdown files — any agent that supports instruction files and 
 
 1. [Set up Figma Console MCP](#figma-console-mcp-setup) (one time, 5 min)
 2. Open your Figma file and navigate to the page you want your design system on
-3. Open the Desktop Bridge plugin (Plugins → Desktop Bridge)
-4. Tell your AI agent "connect to Figma" — it'll generate a 6-character pairing code
-5. In the Desktop Bridge plugin: toggle **Cloud Mode** → enter the code → Connect
-6. Run `/setup-project` to detect your tokens
-7. Run `/sync-to-figma` to push everything to Figma — **stay on this page**
+3. Open the Desktop Bridge plugin (Plugins → Desktop Bridge) — it connects automatically in local mode
+4. Run `/setup-project` to detect your tokens
+5. Run `/sync-to-figma` to push everything to Figma — **stay on this page**
 
 ## How it works
 
@@ -76,13 +74,21 @@ These use a subset of Figma Console MCP's 59+ tools. Build your own skills with 
 
 ## Figma Console MCP setup
 
-One-time setup. Takes about 5 minutes.
+One-time setup. Takes about 5 minutes. Two connection modes are available — **local mode is recommended**.
 
-### 1. Get a Figma access token
+### Local mode (recommended)
+
+Direct connection between the MCP server on your machine and Figma Desktop. No pairing codes, no session expiry, no relay server.
+
+```
+Figma Plugin → WebSocket → localhost:9223 → stdio → Claude
+```
+
+#### 1. Get a Figma access token
 
 From Figma Desktop: Home → Profile pic (your name, down arrow) → Settings → Security tab → Create new token. Copy it (starts with `figd_`).
 
-### 2. Add to Claude Code
+#### 2. Add to Claude Code
 
 ```bash
 claude mcp add figma-console -s user -e FIGMA_ACCESS_TOKEN=figd_YOUR_TOKEN_HERE -- npx -y figma-console-mcp@latest
@@ -90,13 +96,34 @@ claude mcp add figma-console -s user -e FIGMA_ACCESS_TOKEN=figd_YOUR_TOKEN_HERE 
 
 Restart Claude Code.
 
-### 3. Install the Desktop Bridge plugin
+#### 3. Install the Desktop Bridge plugin
 
 Open any Figma file → Plugins → Search "Desktop Bridge" → Install and run it.
 
 If it doesn't show up, run `npx figma-console-mcp@latest` once in your terminal to generate the plugin files, then import via Plugins → Development → Import plugin from manifest → `~/.figma-console-mcp/plugin/manifest.json`.
 
-That's it. Go back to [Quick start](#quick-start).
+That's it — the plugin auto-connects to the local server. Go back to [Quick start](#quick-start).
+
+### Cloud mode
+
+Routes through Southleft's cloud relay. Use this if you can't run the MCP server locally (e.g. Claude Desktop or browser-based agents without stdio support).
+
+```
+Figma Plugin → WSS → southleft.com relay → SSE → mcp-remote → Claude
+```
+
+```bash
+claude mcp add figma-console -s user -- npx -y mcp-remote@latest https://figma-console-mcp.southleft.com/sse
+```
+
+Each session requires a 6-character pairing code: tell your agent "connect to Figma", then enter the code in the Desktop Bridge plugin under **Cloud Mode**.
+
+#### Known issues with cloud mode
+
+- **Sessions drop frequently.** The relay connection can break on network blips, idle timeouts, or Claude context switches. Each reconnect requires a new pairing code.
+- **Pairing codes expire in 5 minutes.** If you miss the window, you need to generate a new one.
+- **`get_status` can report `initialized: false` despite a working connection.** Some tools (`figma_execute`) may work while others (`get_variables`) don't — they use different connection paths.
+- **Three network hops.** Each is a failure point: plugin → relay (WebSocket), relay → MCP client (SSE), MCP client → Claude (stdio). Local mode has one hop.
 
 ## Found it useful?
 
