@@ -54,7 +54,7 @@ The skills are markdown files — any agent that supports instruction files and 
 **What gets generated:**
 
 - Color Palette — square swatches bound to variables
-- Typography — fonts in context + type scale (auto-detects project fonts, never falls back to Inter)
+- Typography — your actual fonts + type scale
 - Spacing & Radii — visual samples
 - Component artboards — one per component, all states (default, hover, focus, active, disabled, loading)
 
